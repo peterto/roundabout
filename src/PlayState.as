@@ -21,14 +21,14 @@ package
 			}
 		}
 		
-		//override public function update():void
-		//{
-			//if (FlxG.keys())
-			//{
-			//
-			//}
-			//
-			//super.update();
-		//}
+		override public function update():void
+		{
+			if (FlxG.keys())
+			{
+				
+			}
+			
+			super.update();
+		}
 	}
 }

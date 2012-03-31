@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="bin\Goodbye.swf" />
+    <movie path="bin\roundabout.swf" />
     <movie fps="60" />
     <movie width="640" />
     <movie height="480" />
