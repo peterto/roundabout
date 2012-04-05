@@ -6,8 +6,8 @@ package
 	{
 		public var level:FlxTilemap;
 		public var enemies:FlxGroup;
-		public var playerOne:FlxSprite;
-		public var playerTwo:FlxSprite;
+		public var playerOne:PlayerSprite;
+		public var playerTwo:PlayerSprite;
 		public var status:FlxText;
 		public var score:FlxText;
 		
@@ -55,14 +55,14 @@ package
 			add(level);
 				
 			enemies = new FlxGroup();
-			for (var i:int = 0; i < 300; i++) {
+			for (var i:int = 0; i < 100; i++) {
 				createEnemy(Math.random() * 36, Math.random() * 36);
 			}
 			
 			add(enemies);
 	
 			//Create playerOne (a red box)
-			playerOne = new FlxSprite(FlxG.width/2 - 5, FlxG.height/2 - 5);
+			playerOne = new PlayerSprite(FlxG.width/2 - 5, FlxG.height/2 - 5);
 			playerOne.makeGraphic(4,4,0xffaa1111);
 			playerOne.maxVelocity.x = 80;
 			playerOne.maxVelocity.y = 200;
@@ -71,7 +71,7 @@ package
 			add(playerOne);
 			
 			//Create playerTwo (a red box)
-			playerTwo = new FlxSprite(FlxG.width/2 - 5, FlxG.height/2 - 5);
+			playerTwo = new PlayerSprite(FlxG.width/2 - 5, FlxG.height/2 - 5);
 			playerTwo.makeGraphic(4,4,0xffffff00);
 			playerTwo.maxVelocity.x = 80;
 			playerTwo.maxVelocity.y = 200;
@@ -130,10 +130,10 @@ package
 			if(playerTwo.isTouching(FlxObject.FLOOR))
 				playerTwo.velocity.y = -playerTwo.maxVelocity.y / 2;
 			
-			for (var i:int = 0; i < 300; i++)
-			{
-				//enemies.members[i].acceleration.x = 0;
-				//enemies.members[i].acceleration.y = 0;
+			var i:int = 0;
+			while (i < enemies.length) {
+				enemies.members[i].acceleration.x = 0;
+				enemies.members[i].acceleration.y = 0;
 				var randomNum:int;
 				randomNum = new int(Math.random() * 4);
 				
@@ -146,20 +146,23 @@ package
 				} else {
 					enemies.members[i].acceleration.y = enemies.members[i].maxVelocity.y * 4;
 				}
-				
+				i++;			
 			}
 			
-			if (FlxG.keys.M) {
-				FlxG.overlap(playerOne, playerTwo, win)
-			}
+
 				
 			//Updates all the objects appropriately
 			super.update();
+			
 	
 			//Finally, bump the player up against the level
 			FlxG.collide(level, playerOne);
 			FlxG.collide(level, playerTwo);
 			FlxG.collide(level, enemies);
+			
+			if (FlxG.keys.M) {
+				FlxG.overlap(playerOne, playerTwo, win)
+			}
 			
 			//Check for player lose conditions
 			if(playerOne.y > FlxG.height) {
@@ -170,6 +173,7 @@ package
 		public function win(PlayerOne:FlxSprite, PlayerTwo:FlxSprite):void {
 			playerTwo.kill();
 			FlxG.score = 1;	
+			FlxG.resetState();
 		}
 	}
 }
