@@ -92,7 +92,7 @@ package
 		
 		public function createEnemy(X:uint, Y:uint):void
 		{
-			var enemy:FlxSprite = new FlxSprite(X * 8 + 3, Y * 8 + 2);
+			var enemy:EnemySprite = new EnemySprite(X * 8 + 3, Y * 8 + 2);
 			enemy.makeGraphic(4, 4, Math.random() * 0xffffff00);
 			enemy.maxVelocity.x = 80;
 			enemy.maxVelocity.y = 200;
@@ -132,21 +132,9 @@ package
 			
 			var i:int = 0;
 			while (i < enemies.length) {
-				enemies.members[i].acceleration.x = 0;
-				enemies.members[i].acceleration.y = 0;
-				var randomNum:int;
-				randomNum = new int(Math.random() * 4);
-				
-				if (randomNum == 0)	{
-					enemies.members[i].acceleration.x = -enemies.members[i].maxVelocity.x * 4;
-				} else if (randomNum == 1) {
-					enemies.members[i].acceleration.x = enemies.members[i].maxVelocity.x * 4;
-				} else if (randomNum == 2) {
-					enemies.members[i].acceleration.y = -enemies.members[i].maxVelocity.y * 4;
-				} else {
-					enemies.members[i].acceleration.y = enemies.members[i].maxVelocity.y * 4;
-				}
-				i++;			
+				//enemies.members[i].acceleration.x = 0;
+				//enemies.members[i].acceleration.y = 0;
+				enemies.members[i++].move();
 			}
 			
 
