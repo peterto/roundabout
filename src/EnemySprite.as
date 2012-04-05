@@ -45,6 +45,7 @@ package
 			return randomBool;
 		}
 		
+		//individual EnemySprite movement
 		public function move():void {
 			var randomNum:int;
 			randomNum = new int(Math.random() * 4);
